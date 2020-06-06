@@ -72,28 +72,33 @@ func obtain(fname string) []section {
 }
 
 func main() {
-	osd1 := xosd.New(10)
-	osd1.SetFont("-adobe-*-*-r-*-*-*-120-*-*-*-*-*-*")
-	osd1.SetColour("green")
-	osd1.DisplayString(1, "Hi there. Wow!")
-	osd1.DisplayString(2, "Hi there. Wow!")
-	osd1.DisplayString(3, "Hi there. Wow!")
-
 	osd2 := xosd.New(10)
 	osd2.SetFont("-adobe-*-*-r-*-*-*-120-*-*-*-*-*-*")
-	osd2.SetColour("dark green")
+	osd2.SetColour("red")
+	for i := 1; i < 10; i++ {
+		t := fmt.Sprintf("Line %d", i)
+		osd2.DisplayString(i, t)
+	}
 
 	for {
-		fmt.Println("First")
-		for i := 1; i <= 3; i++ {
-			osd2.DisplayString(i, "Hi there. Wow!")
-			time.Sleep(time.Duration(1) * time.Second)
-		}
-		fmt.Println("Second")
+		for j := 1; j < 10; j++ {
+			for i := 1; i < 10; i++ {
+				osd2 = xosd.New(10)
+				osd2.SetFont("-adobe-*-*-r-*-*-*-120-*-*-*-*-*-*")
+				osd2.SetColour("red")
+				t := fmt.Sprintf("Line %d", i)
+				osd2.DisplayString(i, t)
+				osd2.Destroy()
+			}
 
-		for i := 1; i <= 3; i++ {
-			osd1.DisplayString(i, "Hi there. Wow!")
+			osd1 := xosd.New(10)
+			osd1.SetFont("-adobe-*-*-r-*-*-*-120-*-*-*-*-*-*")
+			osd1.SetColour("blue")
+			t := fmt.Sprintf("Line %d", j)
+			osd1.DisplayString(j, t)
+			osd1.Destroy()
 			time.Sleep(time.Duration(1) * time.Second)
+
 		}
 	}
 

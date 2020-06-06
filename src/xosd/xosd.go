@@ -1,5 +1,7 @@
 package xosd
 
+import "fmt"
+
 // #cgo CFLAGS: -g -Wall
 // #cgo LDFLAGS: -lxosd
 // #include <xosd.h>
@@ -20,6 +22,10 @@ func New(lines int) osd {
 	return ret
 }
 
+func (self osd) Print() {
+	fmt.Printf("%v\n", self)
+}
+
 func (self osd) SetFont(fontname string) {
 	c_fontname := C.CString(fontname)
 	C.xosd_set_font(self.c_xosd, c_fontname)
@@ -35,6 +41,10 @@ func (self osd) SetColour(colourname string) {
 func (self osd) DisplayString(pos int, text string) {
 	c_text := C.CString(text)
 	C.display_string(self.c_xosd, C.int(pos), c_text)
+}
+
+func (self osd) Destroy() {
+	C.xosd_destroy(self.c_xosd)
 }
 
 func OsdPrint(text string) {

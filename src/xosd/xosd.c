@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <xosd.h>
 
 #define NKEYS 10
@@ -7,7 +8,6 @@ configure_osd(int lines)
 {
   xosd *osd;
   osd = xosd_create (lines);
-
   /* xosd_set_font(osd, "-adobe-*-*-r-*-*-*-120-*-*-*-*-*-*"); */
   /* xosd_set_pos(osd, XOSD_top); */
   /* xosd_set_align(osd, XOSD_right); */
