@@ -24,26 +24,6 @@ func check(e error) {
 	}
 }
 
-// xosd *
-// configure_osd(int lines)
-// {
-//   xosd *osd;
-//   osd = xosd_create (NKEYS);
-
-//   xosd_set_font(osd, "-adobe-courier-bold-r-normal--60-320-*-*-*-*-*-*");
-//   xosd_set_pos(osd, XOSD_top);
-//   xosd_set_align(osd, XOSD_right);
-
-//   xosd_set_colour(osd, "green");
-//   xosd_set_outline_colour(osd, "black");
-//   xosd_set_outline_offset(osd, 2);
-//   xosd_set_shadow_colour(osd, "grey");
-//   xosd_set_shadow_offset(osd, 3);
-
-//   xosd_set_timeout(osd, -1);
-//   return osd;
-// }
-
 func display(topics []section) {
 	for _, topic := range topics {
 		fmt.Println(topic.topic)
@@ -71,22 +51,34 @@ func obtain(fname string) []section {
 	return ret
 }
 
+func clock(items []section) {
+	font := "-*-itc bookman-*-i-*-*-*-*-*-*-*-*-*-*"
+	clock_osd := xosd.New(5, xosd.XOSD_bottom)
+	clock_osd.SetFont(font)
+	clock_osd.SetColour("yellow")
+	for {
+		now := time.Now().Format("03:04:05 PM")
+		clock_osd.DisplayString(2, now)
+		time.Sleep(time.Duration(100000) * time.Nanosecond)
+	}
+}
+
 func main() {
 	items := obtain(os.Args[1])
 	font := "-*-courier 10 pitch-*-r-*-*-*-*-*-*-*-*-*-*"
 	// Display all items initially
-	osd3 := xosd.New(10)
+	osd3 := xosd.New(10, xosd.XOSD_bottom)
 	osd3.SetFont(font)
 	osd3.SetColour("dark green")
+	go clock(items)
 	for lno, item := range items {
 		t := fmt.Sprintf("%.1f  %20s", item.duration, item.topic)
 		osd3.DisplayString(lno, t)
 	}
 
 	for lno, item := range items {
-
 		for lno, item := range items { // Set everything to dark colours
-			osd2 := xosd.New(10)
+			osd2 := xosd.New(10, xosd.XOSD_bottom)
 			osd2.SetFont(font)
 			osd2.SetColour("dark green")
 			t := fmt.Sprintf("%.1f  %20s", item.duration, item.topic)
@@ -94,7 +86,7 @@ func main() {
 			osd2.Destroy()
 		}
 		log.Printf("Highlighting %s (%d) \n", item.topic, lno)
-		osd1 := xosd.New(10)
+		osd1 := xosd.New(10, xosd.XOSD_bottom)
 		osd1.SetFont(font)
 		osd1.SetColour("green")
 		t := fmt.Sprintf("%.1f  %20s", item.duration, item.topic)
@@ -104,6 +96,6 @@ func main() {
 	}
 	fmt.Printf("Done!")
 
-	time.Sleep(time.Duration(1) * time.Second)
+	time.Sleep(time.Duration(10) * time.Second)
 	osd3.Destroy()
 }

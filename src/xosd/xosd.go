@@ -9,15 +9,18 @@ import "fmt"
 // void display_string(xosd *osd , int l, char *line);
 import "C"
 
+const XOSD_top = C.XOSD_top
+const XOSD_bottom = C.XOSD_bottom
+
 type osd struct {
 	c_xosd *C.struct_xosd
 }
 
-func New(lines int) osd {
+func New(lines int, pos C.xosd_pos) osd {
 	var ret osd
 	ret.c_xosd = C.configure_osd(C.int(lines))
 	C.xosd_set_timeout(ret.c_xosd, -1)
-	C.xosd_set_pos(ret.c_xosd, C.XOSD_bottom)
+	C.xosd_set_pos(ret.c_xosd, pos)
 	C.xosd_set_align(ret.c_xosd, C.XOSD_right)
 	return ret
 }
