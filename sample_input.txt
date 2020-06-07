@@ -1,6 +1,14 @@
-1 Introduction
-3 The problem
-4 Our solution
-5 Implementation
-5 Questions
-1 Thanks
+# Lines that start with # are ignored
+# You can use this to add comments and 
+# metadata
+# Each line is of the form 
+#     mm:ss Section name
+# The space between the duration (mm:ss) and the Section name is
+# complusory
+
+0:5 Introduction
+1:00 The problem
+4:30 Our solution
+5:15 Implementation
+5:00 Questions
+1:30 Thanks
