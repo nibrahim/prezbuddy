@@ -17,7 +17,7 @@ func New(lines int) osd {
 	var ret osd
 	ret.c_xosd = C.configure_osd(C.int(lines))
 	C.xosd_set_timeout(ret.c_xosd, -1)
-	C.xosd_set_pos(ret.c_xosd, C.XOSD_top)
+	C.xosd_set_pos(ret.c_xosd, C.XOSD_bottom)
 	C.xosd_set_align(ret.c_xosd, C.XOSD_right)
 	return ret
 }

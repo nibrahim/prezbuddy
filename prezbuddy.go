@@ -72,37 +72,38 @@ func obtain(fname string) []section {
 }
 
 func main() {
-	osd2 := xosd.New(10)
-	osd2.SetFont("-adobe-*-*-r-*-*-*-120-*-*-*-*-*-*")
-	osd2.SetColour("red")
-	for i := 1; i < 10; i++ {
-		t := fmt.Sprintf("Line %d", i)
-		osd2.DisplayString(i, t)
-	}
-
-	for {
-		for j := 1; j < 10; j++ {
-			for i := 1; i < 10; i++ {
-				osd2 = xosd.New(10)
-				osd2.SetFont("-adobe-*-*-r-*-*-*-120-*-*-*-*-*-*")
-				osd2.SetColour("red")
-				t := fmt.Sprintf("Line %d", i)
-				osd2.DisplayString(i, t)
-				osd2.Destroy()
-			}
-
-			osd1 := xosd.New(10)
-			osd1.SetFont("-adobe-*-*-r-*-*-*-120-*-*-*-*-*-*")
-			osd1.SetColour("blue")
-			t := fmt.Sprintf("Line %d", j)
-			osd1.DisplayString(j, t)
-			osd1.Destroy()
-			time.Sleep(time.Duration(1) * time.Second)
-
-		}
-	}
-
 	items := obtain(os.Args[1])
-	display(items)
+	font := "-*-courier 10 pitch-*-r-*-*-*-*-*-*-*-*-*-*"
+	// Display all items initially
+	osd3 := xosd.New(10)
+	osd3.SetFont(font)
+	osd3.SetColour("dark green")
+	for lno, item := range items {
+		t := fmt.Sprintf("%.1f  %20s", item.duration, item.topic)
+		osd3.DisplayString(lno, t)
+	}
 
+	for lno, item := range items {
+
+		for lno, item := range items { // Set everything to dark colours
+			osd2 := xosd.New(10)
+			osd2.SetFont(font)
+			osd2.SetColour("dark green")
+			t := fmt.Sprintf("%.1f  %20s", item.duration, item.topic)
+			osd2.DisplayString(lno, t)
+			osd2.Destroy()
+		}
+		log.Printf("Highlighting %s (%d) \n", item.topic, lno)
+		osd1 := xosd.New(10)
+		osd1.SetFont(font)
+		osd1.SetColour("green")
+		t := fmt.Sprintf("%.1f  %20s", item.duration, item.topic)
+		osd1.DisplayString(lno, t)
+		time.Sleep(time.Duration(item.duration) * time.Second)
+		osd1.Destroy()
+	}
+	fmt.Printf("Done!")
+
+	time.Sleep(time.Duration(1) * time.Second)
+	osd3.Destroy()
 }
