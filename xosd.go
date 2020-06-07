@@ -1,4 +1,4 @@
-package xosd
+package main
 
 import "fmt"
 
@@ -16,7 +16,7 @@ type osd struct {
 	c_xosd *C.struct_xosd
 }
 
-func New(lines int, pos C.xosd_pos) osd {
+func xosd_create(lines int, pos C.xosd_pos) osd {
 	var ret osd
 	ret.c_xosd = C.configure_osd(C.int(lines))
 	C.xosd_set_timeout(ret.c_xosd, -1)

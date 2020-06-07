@@ -8,7 +8,6 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"xosd"
 )
 
 type section struct {
@@ -73,7 +72,7 @@ func obtain(fname string) []section {
 
 func clock(items []section) {
 	font := "-*-itc bookman-*-i-*-*-*-*-*-*-*-*-*-*"
-	clock_osd := xosd.New(len(items)+10, xosd.XOSD_bottom)
+	clock_osd := xosd_create(len(items)+10, XOSD_bottom)
 	clock_osd.SetFont(font)
 	clock_osd.SetColour("green")
 
@@ -103,7 +102,7 @@ func main() {
 
 	font := "-*-courier 10 pitch-*-r-*-*-*-*-*-*-*-*-*-*"
 	// Display all items initially
-	osd3 := xosd.New(len(items)+3, xosd.XOSD_bottom)
+	osd3 := xosd_create(len(items)+3, XOSD_bottom)
 	osd3.SetFont(font)
 	osd3.SetColour("gray6")
 	go clock(items)
@@ -113,14 +112,14 @@ func main() {
 
 	for lno, item := range items {
 		for lno, item := range items { // Set everything to dark colours
-			osd2 := xosd.New(len(items)+3, xosd.XOSD_bottom)
+			osd2 := xosd_create(len(items)+3, XOSD_bottom)
 			osd2.SetFont(font)
 			osd2.SetColour("gray6")
 			osd2.DisplayString(lno, item.String())
 			osd2.Destroy()
 		}
 		log.Printf("Highlighting %s (%d) \n", item.topic, lno)
-		osd1 := xosd.New(len(items)+3, xosd.XOSD_bottom)
+		osd1 := xosd_create(len(items)+3, XOSD_bottom)
 		osd1.SetFont(font)
 		osd1.SetColour("LawnGreen")
 		osd1.DisplayString(lno, item.String())
