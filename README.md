@@ -4,14 +4,13 @@ Simple program that displays the time required by each section of a presentation
 
 ## Installation
 
-To just get the program and run it `go get github.com/nibrahim/prezbuddy`
+To just get the program and run it `go get github.com/nibrahim/prezbuddy` and then `./bin/prezbuddy src/github.com/nibrahim/prezbuddy/sample_input.txt`
 
-To get the source and everything else, clone this repository and run `go build prezbuddy` from the repo root.
+To get the source and everything else, clone this repository and run `go build .` from the repo root to get the `prezbuddy` executable.
 
 ## Running
 
-    prezbuddy <sample_input.txt>
-    
+    ./prezbuddy <sample_input.txt>
     
 ## Format of input file
 
@@ -33,4 +32,4 @@ To get the source and everything else, clone this repository and run `go build p
 
 ## Limitations
 
-Relies on xosd to get the job done. Works only on Gnu/Linux
+Relies on xosd to get the job done and hence needs `libxosd` installed. Works only on Gnu/Linux.
