@@ -2,6 +2,11 @@
 
 Simple program that displays the time required by each section of a presentation using `libxosd`. Requires an input file which gives duration of each section as well as the name of the section. An example has been provided in this repo as `sample_input.txt`
 
+It looks something like this
+
+![Screenshot](https://raw.githubusercontent.com/nibrahim/prezbuddy/master/screenshots/prezbuddy-s.png)
+
+
 ## Installation
 
 To just get the program and run it `go get github.com/nibrahim/prezbuddy` and then `./bin/prezbuddy src/github.com/nibrahim/prezbuddy/sample_input.txt`
