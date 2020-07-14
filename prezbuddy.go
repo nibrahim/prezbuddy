@@ -16,7 +16,7 @@ type section struct {
 }
 
 func (self section) String() string {
-	return fmt.Sprintf("%6s : %15s", self.duration.String(), self.topic)
+	return fmt.Sprintf("%6s : %30s", self.duration.String(), self.topic)
 }
 
 func check(e error) {
@@ -66,7 +66,6 @@ func obtain(fname string) []section {
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(ret)
 	return ret
 }
 
